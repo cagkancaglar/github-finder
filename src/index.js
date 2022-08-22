@@ -11,19 +11,19 @@ import {
 
 
 const HomePage = () => {
-    <div>Home Page</div>
+   return <div>Home Page</div>
 };
 
 const ContactPage = () => {
-    <div>Contact Page</div>
+    return <div>Contact Page</div>
 };
 
 const ProductsPage = () => {
-    <div>Products Page</div>
+    return <div>Products Page</div>
 };
 
 const NotFound = () => {
-    <div>404 Page</div>
+    return <div>404 Page</div>
 };
 
 
@@ -38,4 +38,4 @@ const routes =  (
     </BrowserRouter>
 );
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(routes, document.getElementById('root'));
