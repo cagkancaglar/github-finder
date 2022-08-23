@@ -1,60 +1,82 @@
-import React, { Component, Fragment } from 'react'
-import Navbar from './Navbar'
-import Users from './Users'
-import Search from './Search'
-import axios from 'axios'
-import Alert from './Alert'
+import React, { Component, Fragment } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Switch,
+  Link,
+  NavLink,
+} from "react-router-dom";
+import Navbar from "./Navbar";
+import Users from "./Users";
+import Search from "./Search";
+import axios from "axios";
+import Alert from "./Alert";
+import About from "./About";
+import AppRouter from "../routers/AppRouter";
 
 export class App extends Component {
-    constructor(props) {
-        super(props);
-        this.searchUsers = this.searchUsers.bind(this);
-        this.clearUsers = this.clearUsers.bind(this);
-        this.setAlert = this.setAlert.bind(this);
+  constructor(props) {
+    super(props);
+    this.searchUsers = this.searchUsers.bind(this);
+    this.clearUsers = this.clearUsers.bind(this);
+    this.setAlert = this.setAlert.bind(this);
 
-        this.state = {
-            loading: false,
-            users: [],
-            alert: null
-        }
-    }
+    this.state = {
+      loading: false,
+      users: [],
+      alert: null,
+    };
+  }
 
-    searchUsers(keyword) {
-        this.setState({loading: true});
-        
-        setTimeout(() => {
-            axios
-                .get(`https://api.github.com/search/users?q=${keyword}`)
-                .then(res => this.setState({users: res.data.items, loading: false}));
-        }, 1000);
-        
-    }
+  searchUsers(keyword) {
+    this.setState({ loading: true });
 
-    clearUsers(){
-        this.setState({users:[]});
-    }
+    setTimeout(() => {
+      axios
+        .get(`https://api.github.com/search/users?q=${keyword}`)
+        .then((res) =>
+          this.setState({ users: res.data.items, loading: false })
+        );
+    }, 1000);
+  }
 
-    setAlert(msg, type){
-        this.setState({alert: {msg, type}});
+  clearUsers() {
+    this.setState({ users: [] });
+  }
 
-        setTimeout(() => {
-            this.setState({alert: null})
-        }, 3000);
-    }
-    render() {
-        return (
-            <>
-                <Navbar />
-                <Alert alert={this.state.alert} />
-                <Search 
-                searchUsers={this.searchUsers} 
-                clearUsers={this.clearUsers} 
-                showClearButton={this.state.users.length > 0 ? true : false}
-                setAlert={this.setAlert} />
-                <Users users={this.state.users} loading={this.state.loading}/>
-            </>
-        )
-    }
+  setAlert(msg, type) {
+    this.setState({ alert: { msg, type } });
+
+    setTimeout(() => {
+      this.setState({ alert: null });
+    }, 3000);
+  }
+  render() {
+    return (
+      <BrowserRouter>
+        <Navbar />
+        <Alert alert={this.state.alert} />
+        <Switch>
+          <Route exact
+            path="/"
+            render={(props) => (
+              <>
+                <Search
+                  searchUsers={this.searchUsers}
+                  clearUsers={this.clearUsers}
+                  showClearButton={this.state.users.length > 0 ? true : false}
+                  setAlert={this.setAlert}
+                />
+                <Users users={this.state.users} loading={this.state.loading} />
+              </>
+            )}
+          />
+          <Route path="/about" component={About} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
-export default App
+export default App;

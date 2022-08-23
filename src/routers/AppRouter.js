@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     BrowserRouter,
     Routes,
@@ -9,7 +9,7 @@ import {
   } from "react-router-dom";
 
 
-  const Nav = () => {
+  const Nav = () => { 
     return (
         // <nav>
         //     <Link to="/">Home</Link> |
@@ -21,7 +21,7 @@ import {
         <NavLink exact to="/" activeClassName='active'>Home</NavLink> |
         <NavLink to="/contact" activeClassName='active'>Contact</NavLink> |
         <NavLink exact to="/products" activeClassName='active'>Products</NavLink> |
-        <NavLink to="/products/12" activeClassName='active'>Products Details</NavLink> |
+        <NavLink to="/products/12?orderby=asc=price" activeClassName='active'>Products Details</NavLink> |
     </nav>
     )
 };
@@ -34,16 +34,16 @@ const Header = () => {
 
 const HomePage = () => {
     
-   return(
-    <>
-        <div>Home Page</div>
-    </>
+   return (
+        <>
+            <div>Home Page</div>
+        </>
    ) 
 };
 
  const ContactPage = () => {
     
-    return(
+    return (
      <>
          <div>Contact Page</div>
      </>
@@ -52,27 +52,29 @@ const HomePage = () => {
 
  const ProductsPage = () => {
     
-    return(
-     <>
-         <div>Products Page</div>
-     </>
+    return (
+        <>
+            <div>Products Page</div>
+        </>
     ) 
  };
 
- const ProductsDetailsPage = () => {
+ const ProductsDetailsPage = (props) => {
+    console.log(props);
     return (
-    <>
-         <div>ProductsDetails Page</div>
-     </>
+        <>
+            <div>Products Details Page</div>
+            <div>{props.match.params.id}</div>
+        </>
     )
  }
 
  const NotFoundPage = () => {
     
-    return(
-     <>
-         <div>NotFound Page</div>
-     </>
+    return (
+        <>
+            <div>NotFound Page</div>
+        </>
     ) 
  };
 
@@ -84,7 +86,7 @@ const HomePage = () => {
             <Switch>
                 <Route exact path="/" component={ HomePage } />
                 <Route path="/contact" component={ ContactPage } />
-                <Route path="/products" component={ ProductsPage } />
+                <Route exact path="/products" component={ ProductsPage } />
                 <Route path="/products/:id" component={ ProductsDetailsPage } />
                 <Route component={ NotFoundPage } />
             </Switch>
