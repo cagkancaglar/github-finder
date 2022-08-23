@@ -13,7 +13,8 @@ import Search from "./Search";
 import axios from "axios";
 import Alert from "./Alert";
 import About from "./About";
-import AppRouter from "../routers/AppRouter";
+// import AppRouter from "../routers/AppRouter";
+import UserDetails from "./UserDetails";
 
 export class App extends Component {
   constructor(props) {
@@ -21,12 +22,13 @@ export class App extends Component {
     this.searchUsers = this.searchUsers.bind(this);
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
-
+    this.getUser = this.getUser.bind(this);
     this.state = {
       loading: false,
       users: [],
-      alert: null,
-    };
+      user: {},
+      alert: null
+    }
   }
 
   searchUsers(keyword) {
@@ -39,6 +41,17 @@ export class App extends Component {
           this.setState({ users: res.data.items, loading: false })
         );
     }, 1000);
+  }
+
+  getUser(username) {
+    this.setState({loading: true,})
+    setTimeout(() => {
+        axios
+          .get(`https://api.github.com/users/${username}`)
+          .then((res) =>
+            this.setState({ user: res.data, loading: false })
+          );
+      }, 1000);
   }
 
   clearUsers() {
@@ -73,9 +86,12 @@ export class App extends Component {
             )}
           />
           <Route path="/about" component={About} />
+          <Route path="/user/:login" render={props => (
+            <UserDetails {...props} getUser= {this.getUser} user={this.state.user}/>
+          )} />
         </Switch>
       </BrowserRouter>
-    );
+    )
   }
 }
 

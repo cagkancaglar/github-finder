@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom'
 
 class User extends Component {
     render() {
@@ -9,7 +10,7 @@ class User extends Component {
                         <img src={avatar_url} alt="" className="img-fluid"/>
                         <div className="card-body">
                             <h5 className="card-title">{login}</h5>
-                            <a href={html_url} className="btn btn-primary btn-sm">Go Profile</a>
+                            <Link to={`/user/${login}`} className="btn btn-primary btn-sm">Go Profile</Link>
                         </div>
                     </div>
                 </div>
