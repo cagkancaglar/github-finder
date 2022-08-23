@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
+import Loading from './Loading'
 
 class UserDetails extends Component {
     componentDidMount(){
         this.props.getUser(this.props.match.params.login)
     }
   render() {
-    return (
-        <div>
-            {this.props.user.name}
-        </div>
-    )
+
+    if (this.props.loading) {
+        return <Loading />
+     } 
+    else{
+        return (
+            <div>
+                {this.props.user.name}
+            </div>
+        )
+     }
   }
 }
 

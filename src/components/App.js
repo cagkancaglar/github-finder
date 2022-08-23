@@ -87,7 +87,7 @@ export class App extends Component {
           />
           <Route path="/about" component={About} />
           <Route path="/user/:login" render={props => (
-            <UserDetails {...props} getUser= {this.getUser} user={this.state.user}/>
+            <UserDetails {...props} getUser= {this.getUser} user={this.state.user} loading= {this.state.loading}/>
           )} />
         </Switch>
       </BrowserRouter>
