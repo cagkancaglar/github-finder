@@ -23,10 +23,12 @@ export class App extends Component {
     this.clearUsers = this.clearUsers.bind(this);
     this.setAlert = this.setAlert.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.getUserRepos = this.getUserRepos.bind(this);
     this.state = {
       loading: false,
       users: [],
       user: {},
+      repos: [],
       alert: null
     }
   }
@@ -50,6 +52,17 @@ export class App extends Component {
           .get(`https://api.github.com/users/${username}`)
           .then((res) =>
             this.setState({ user: res.data, loading: false })
+          );
+      }, 1000);
+  }
+
+  getUserRepos(username) {
+    this.setState({loading: true,})
+    setTimeout(() => {
+        axios
+          .get(`https://api.github.com/users/${username}/repos`)
+          .then((res) =>
+            this.setState({ repos: res.data, loading: false })
           );
       }, 1000);
   }
@@ -87,7 +100,7 @@ export class App extends Component {
           />
           <Route path="/about" component={About} />
           <Route path="/user/:login" render={props => (
-            <UserDetails {...props} getUser= {this.getUser} user={this.state.user} loading= {this.state.loading}/>
+            <UserDetails {...props} getUser= {this.getUser} user={this.state.user} loading= {this.state.loading} getUserRepos={this.getUserRepos} repos={this.state.repos} />
           )} />
         </Switch>
       </BrowserRouter>
