@@ -1,7 +1,7 @@
 const path = require("node:path/win32");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/examples/note-app.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js"
@@ -33,5 +33,5 @@ module.exports = {
                 ],
             }
         ]
-    }       
+    }
 }

@@ -19,7 +19,7 @@ const Search = ({searchUsers, setAlert, showClearButton, clearUsers}) => {
             setKeyword("")
         }
     }
-
+ 
         return (
             <div className="container my-3">
 
