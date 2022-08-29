@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Loading from './Loading'
 import Repos from './Repos'
 
+
 const UserDetails = ({getUser, getUserRepos, match, user, loading, repos }) => {
 
     useEffect(() => {

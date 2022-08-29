@@ -37,8 +37,11 @@ const NoteApp = () => {
                                         <tr key={note.title}>
                                             <td style={{width: "40%"}}>{note.title}</td>
                                             <td>{note.body}</td>
-                                            <td style={{width: "3%"}}><button className="btn btn-sm btn-danger">
-                                                <i className="far fa-times"></i></button></td>
+                                            <td style={{width: "3%"}}>
+                                                <button className="btn btn-sm btn-danger">
+                                                    <i className="far fa-times"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 }
@@ -54,7 +57,10 @@ const NoteApp = () => {
                         <div className="form-group">
                             <input  value={title} onChange={(e) => setTitle(e.target.value)} className="form-control" />
                         </div>
-                        <button className="btn btn-primary ben-block">Add Note</button>
+                        <div className="form-group">
+                            <textarea  value={body} onChange={(e) => setBody(e.target.value)} className="form-control" ></textarea>
+                        </div>
+                        <button className="btn btn-primary btn-block">Add Note</button>
                     </form>
                 </div>
             </div>
