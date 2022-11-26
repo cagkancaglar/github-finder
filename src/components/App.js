@@ -76,7 +76,7 @@ export class App extends Component {
 
     setTimeout(() => {
       this.setState({ alert: null });
-    }, 3000);
+    }, 2000);
   }
   render() {
     return (
