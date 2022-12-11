@@ -1,55 +1,38 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import notesReducer from "../reducers/notes";
-import Note from "./Note"
+import NoteList from "./NoteList";
+import AddNoteform from "./AddNoteForm";
+import NotesContext from "../context/notes-context";
 
 const NoteApp = () => {
-    // const [notes, setNotes] = useState([]);
-    const [notes, dispatch] = useReducer(notesReducer, []);
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-  
-    useEffect(() => {
-      const notesData = JSON.parse(localStorage.getItem("notes"));
-      if (notesData) {
-        dispatch({ type: "POPULATE_NOTES", notes: notesData });
-      }
-    }, []);
-  
-    useEffect(() => {
-      localStorage.setItem("notes", JSON.stringify(notes));
-    }, [notes]);
-  
-    const addNote = (e) => {
-      e.preventDefault();
-  
-      if (title) {
-        // setNotes(
-        //     [
-        //         ...notes,
-        //         {title, body}
-        //     ]
-        // )
-        dispatch({ type: "ADD_NOTE", title, body });
-        setTitle("");
-        setBody("");
-      }
-    };
-  
-    const removeNote = (title) => {
-      // setNotes(notes.filter((note) => note.title !== title))
-      dispatch({ type: "REMOVE_NOTE", title });
-    };
-  
-    return (
+  // const [notes, setNotes] = useState([]);
+  const [notes, dispatch] = useReducer(notesReducer, []);
+
+  useEffect(() => {
+    const notesData = JSON.parse(localStorage.getItem("notes"));
+    if (notesData) {
+      dispatch({ type: "POPULATE_NOTES", notes: notesData });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
+
+  const removeNote = (title) => {
+    // setNotes(notes.filter((note) => note.title !== title))
+    dispatch({ type: "REMOVE_NOTE", title });
+  };
+
+  return (
+    <NotesContext.Provider value={{notes, dispatch}}>
       <div className="container p-5">
         <div className="card mb-3">
           <div className="card-header">Notes</div>
           {notes && (
             <table className="table table-sm table-str mb-0">
               <tbody>
-                {notes.map((note) => (
-                 <Note key={note.title} note={note} removeNote={[removeNote]} />
-                ))}
+                <NoteList />
               </tbody>
             </table>
           )}
@@ -57,27 +40,12 @@ const NoteApp = () => {
         <div className="card mb-3">
           <div className="card-header">Add a New Note</div>
           <div className="card-body">
-            <form onSubmit={addNote}>
-              <div className="form-group">
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="form-control"
-                />
-              </div>
-              <div className="form-group">
-                <textarea
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                  className="form-control"
-                ></textarea>
-              </div>
-              <button className="btn btn-primary btn-block">Add Note</button>
-            </form>
+            <AddNoteform />
           </div>
         </div>
       </div>
-    );
-  };
+    </NotesContext.Provider>
+  );
+};
 
-  export default NoteApp
+export default NoteApp;
