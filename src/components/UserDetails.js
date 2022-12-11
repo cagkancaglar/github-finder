@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import Loading from './Loading'
 import Repos from './Repos'
-import GithubContext from '../context/githubContext'
+import GithubContext from '../context/github/githubContext'
 
 
 const UserDetails = ({ match }) => {

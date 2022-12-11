@@ -1,52 +1,37 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Switch,
-  Link,
-  NavLink,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import Users from "./Users";
 import Search from "./Search";
-import axios from "axios";
 import Alert from "./Alert";
 import About from "./About";
-// import AppRouter from "../routers/AppRouter";
 import UserDetails from "./UserDetails";
-import GithubState from "../context/githubState";
+import GithubState from "../context/github/githubState";
+import AlertState from "../context/alert/alertState";
 
 const App = () => {
-  const [alert, setAlert] = useState(null);
-
-  const showAlert = (msg, type) => {
-    setAlert({ msg, type });
-    setTimeout(() => {
-      this.setState({ alert: null });
-    }, 2000);
-  };
-
   return (
     <GithubState>
-      <BrowserRouter>
-        <Navbar />
-        <Alert alert={alert} />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <>
-                <Search setAlert={showAlert} />
-                <Users />
-              </>
-            )}
-          />
-          <Route path="/about" component={About} />
-          <Route path="/user/:login" component={UserDetails} />
-        </Switch>
-      </BrowserRouter>
+      <AlertState>
+        <BrowserRouter>
+          <Navbar />
+          <Alert />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <>
+                  <Search />
+                  <Users />
+                </>
+              )}
+            />
+            <Route path="/about" component={About} />
+            <Route path="/user/:login" component={UserDetails} />
+          </Switch>
+        </BrowserRouter>
+      </AlertState>
     </GithubState>
   );
 };

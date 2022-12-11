@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
-import GithubContext from '../context/githubContext';
+import GithubContext from '../context/github/githubContext';
+import AlertContext from "../context/alert/alertContext";
 
-const Search = ({ setAlert }) => {
+
+const Search = () => {
 
     const { searchUsers, clearUsers, users } = useContext(GithubContext);
+    const { setAlert} = useContext(AlertContext);
 
     const [keyword, setKeyword] = useState("");
        
