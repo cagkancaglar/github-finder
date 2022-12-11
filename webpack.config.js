@@ -13,6 +13,7 @@ module.exports = {
         historyApiFallback: true
     },
     mode:'development',
+    devtool: "eval-cheap-source-map",
     module: {
         rules: [
             {
