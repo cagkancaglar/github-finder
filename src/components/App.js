@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
-import Users from "./Users";
-import Search from "./Search";
+import Home from "./Home";
 import Alert from "./Alert";
 import About from "./About";
+import NotFound from "./NotFound";
 import UserDetails from "./UserDetails";
 import GithubState from "../context/github/githubState";
 import AlertState from "../context/alert/alertState";
@@ -17,18 +17,10 @@ const App = () => {
           <Navbar />
           <Alert />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <>
-                  <Search />
-                  <Users />
-                </>
-              )}
-            />
+            <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/user/:login" component={UserDetails} />
+            <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
       </AlertState>
